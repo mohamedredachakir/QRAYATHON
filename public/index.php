@@ -1,24 +1,22 @@
 <?php
 
-session_start();
-include __DIR__ . "/../config/db.php";
 
-$uri = parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
-$uri = trim($uri , '/');
+$page = $_GET['page'] ?? 'home';
 
-$routes = [
-    "home" => "home.php",
-    "books" => "books.php",
-    "discrbook" => "discrbook.php",
-    "panier" => "panier.php",
-    "profile" => "profile.php",
-    "signup" => "auth/signup.php",
-    "signin" => "auth/signin.php"
-];
-
-if(array_key_exists($uri,$routes)){
-    require __DIR__ . "/../app/controller/" . $routes[$uri];
-}else{
-    require __DIR__ . "/../views/404.php";
+switch($page){
+    case 'home':
+        require_once '../app/Controllers/HomeController.php';
+        break;
+    case 'login':
+    case 'register':
+        require_once '../app/Controllers/AuthController.php';
+        break;
+    case 'books':
+        require_once '../app/Controllers/BookController.php';
+        break;
+    case 'profile':
+        require_once '../app/Controllers/ProfileController.php';
+        break;
+    default:
+        require_once '../views/errors/404.php';
 }
-

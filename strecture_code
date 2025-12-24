@@ -1,0 +1,52 @@
+library/
+│
+├── public/                    
+│   ├── index.php 
+│   ├── .htacces
+│   └──assets/
+│      ├── css/
+│      └── js/              
+│
+├── app/                        
+│   ├── Controllers/
+│   │   ├── HomeController.php
+│   │   ├── AuthController.php
+│   │   ├── BookController.php
+│   │   ├── BorrowController.php
+│   │   └── ProfileController.php
+│   │
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Book.php
+│   │   └── Borrow.php
+│   │
+│   └── Services/
+│       └── AuthService.php
+│
+├── views/                      
+│   ├── homeviews.php
+│   │
+│   ├── auth/
+│   │   ├── login.php
+│   │   └── register.php
+│   │
+│   ├── books/
+│   │   ├── listviews.php
+│   │   └── detailsviews.php
+│   ├── layouts/
+│   │   ├── header.php
+│   │   └── footer.php
+│   │
+│   ├── borrows/
+│   │   └── myborrowsviews.php
+│   │
+│   ├── profile/
+│   │   └── profileviews.php
+│   │
+│   └── errors/
+│       └── 404.php
+│
+├── config/
+│   └── database.php
+│
+└── README.md
