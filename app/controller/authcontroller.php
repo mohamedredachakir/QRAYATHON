@@ -22,5 +22,22 @@ if(isset($_POST['signup'])){
     }
 }
 
+if(isset($_POST['signin'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $auth = new authservice($conn);
+    $user = $auth->signin($email,$password);
+    if($user){
+        $_SESSION['user'] = $user;
+        echo "welcome!";
+    }else{
+        echo "invalid email or password!";
+    };
+
+}
+
+
+require_once '../views/auth/login.php';
 require_once '../views/auth/register.php';
 ?>
