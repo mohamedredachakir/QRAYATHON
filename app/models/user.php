@@ -20,5 +20,12 @@ class user {
             ':role' => $role
         ]);
     }
+
+    public function getbyemail($email){
+        $sql = "SELECT * FROM user where email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>

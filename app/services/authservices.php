@@ -13,5 +13,13 @@ class authservice{
         $user = new user($this->conn);
         return $user->create($fn,$ls,$email,$role,$password);
     }
+    public function signin($email,$password){
+        $usermodel = new user($this->conn);
+        $user = $usermodel->getbyemail($email);
+        if($user && password_verify($password,$user['password'])){
+            return $user;
+        }
+        return false;
+    }
 }
 ?>
