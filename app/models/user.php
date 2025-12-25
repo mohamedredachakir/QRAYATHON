@@ -1,31 +1,29 @@
 
 
 <?php 
-class user {
-    private $conn;
-    public function __construct($conn)
+abstract class user {
+    public $id;
+    public $firstName;
+    public $lastName;
+    public $email;
+    protected $password;
+    public $role;
+    public function __construct($id,$firstName,$lastName,$email,$password,$role)
     {
-      $this->conn = $conn;
+        $this->id = $id;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->email = $email;
+        $this->role = $role;
     }
 
-    public function create($fn,$ls,$email,$password,$role){
-        $sql = "INSER INTO users (firstName,lastName,email,password,role)
-                VALUES (:firstName,:lastName,:email,:password,:role)";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([
-            ':firstName' => $fn,
-            ':lastName' => $ls,
-            ':email' => $email,
-            ':password' => $password,
-            ':role' => $role
-        ]);
-    }
+}
 
-    public function getbyemail($email){
-        $sql = "SELECT * FROM user where email = :email";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':email' => $email]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+class reader extends user {
+    public $borrowbooks = [];
+}
+
+class admin extends user {
+    public $managebooks= true;
 }
 ?>

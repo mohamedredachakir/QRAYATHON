@@ -7,7 +7,7 @@ require_once '../app/Models/User.php';
 
 class authcontroller{
     public function register(){
-    require_once '../config/database.php';
+    require_once '../config/db.php';
     if(isset($_POST['signup'])){
     $fn = $_POST['fisrtname'];
     $ls = $_POST['lastname'];
@@ -17,7 +17,7 @@ class authcontroller{
     $password = password_hash($pass,PASSWORD_DEFAULT);
     $check =$conn->prepare("SELECT * FROM users where email = ?");
     $check->execute([$email]);
-    if($check->rowCont() > 0){
+    if($check->rowCount() > 0){
         echo "user allready exist";
     }else{
      $sql = "INSERT INTO users (firstName,lastName,email,password,role)
@@ -29,7 +29,7 @@ class authcontroller{
  }
 
  public function login(){
-    require_once '../config/database.php';
+    require_once './../config/db.php';
     if(isset($_POST['signin'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -43,7 +43,15 @@ class authcontroller{
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['firstName'];
             $_SESSION['role'] = $user['role'];
-            echo "welcome!";
+            if($user['role'] === 'admin') {
+                header("Location: /dashboard");
+                echo "welcome!";
+                exit();
+            }else{
+                header("Location: /profile");
+                echo "welcome!";
+                exit();
+            }
         }
     
     else{
@@ -63,6 +71,5 @@ public function logout() {
 }
 
 
-require_once '../views/auth/login.php';
-require_once '../views/auth/register.php';
+
 ?>

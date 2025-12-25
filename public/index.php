@@ -1,22 +1,34 @@
 <?php
 
 
-$page = $_GET['page'] ?? 'home';
+session_start();
+
+
+require_once './../app/controller/authcontroller.php';
+
+$auth = new authcontroller();
+
+
+$page = isset($_GET['page']) ? $_GET['page'] : 'login';
+
 
 switch($page){
-    case 'home':
-        require_once '../app/Controllers/HomeController.php';
+    case 'register' : 
+        $auth->register();
+        require_once './views/auth/singup.views.php';
         break;
-    case 'login':
-    case 'register':
-        require_once '../app/Controllers/AuthController.php';
+    case 'login' :
+        $auth->login(); 
+        require_once './views/auth/signin.views.php';
         break;
-    case 'books':
-        require_once '../app/Controllers/BookController.php';
+    case 'logout' : 
+        $auth->logout();
         break;
-    case 'profile':
-        require_once '../app/Controllers/ProfileController.php';
+    case 'books' :
+        require_once './app/controller/bookcontroller.php';
+        require_once './app/models/books.php';
         break;
-    default:
-        require_once '../views/errors/404.php';
-}
+    default :
+        require_once './views/errors/404.php';
+
+};
