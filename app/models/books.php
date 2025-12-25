@@ -8,7 +8,7 @@ class book {
     public $author;
     public $status;
 
-    public function __construct($id,$title,$author,$status = 'available')
+    public function __construct($id,$title,$author,$status)
     {
         $this->id = $id;
         $this->title = $title;

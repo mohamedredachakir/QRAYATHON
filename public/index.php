@@ -28,6 +28,16 @@ switch($page){
         require_once './app/controller/bookcontroller.php';
         require_once './app/models/books.php';
         break;
+    case 'books' :
+        require_once './app/controller/bookcontroller.php';
+        $books = new bookcontroller();
+        $books->index();
+        break;
+    case 'addbook':
+        require_once './app/controller/bookcontroller.php';
+        $books = new bookcontroller();
+        $books->add();
+        break;
     default :
         require_once './views/errors/404.php';
 
