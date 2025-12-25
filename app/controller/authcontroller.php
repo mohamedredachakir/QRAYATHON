@@ -1,39 +1,64 @@
 
 <?php 
 
-require_once '../config/database.php';
-require_once '../app/Models/User.php';
-require_once '../app/Services/AuthService.php';
 
-if(isset($_POST['signup'])){
+require_once '../app/Models/User.php';
+
+
+class authcontroller{
+    public function register(){
+    require_once '../config/database.php';
+    if(isset($_POST['signup'])){
     $fn = $_POST['fisrtname'];
     $ls = $_POST['lastname'];
-    $email = $_post['email'];
+    $email = $_POST['email'];
     $role = "reader";
     $pass = $_POST['password'];
     $password = password_hash($pass,PASSWORD_DEFAULT);
-
-    $auth = new authservice($conn);
-    $result = $auth->signup($fn,$ls,$email,$role,$pass);
-    if($result){
-        echo "user registered successfully!";
+    $check =$conn->prepare("SELECT * FROM users where email = ?");
+    $check->execute([$email]);
+    if($check->rowCont() > 0){
+        echo "user allready exist";
     }else{
-        echo "user could not register user!";
+     $sql = "INSERT INTO users (firstName,lastName,email,password,role)
+             VALUES (?,?,?,?,?)";
+     $stmt = $conn->prepare($sql);
+       if($stmt->execute([$fn,$ls,$email,$password,$role])){echo "registered succes!";};
     }
-}
+    }
+ }
 
-if(isset($_POST['signin'])){
+ public function login(){
+    require_once '../config/database.php';
+    if(isset($_POST['signin'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    $auth = new authservice($conn);
-    $user = $auth->signin($email,$password);
-    if($user){
-        $_SESSION['user'] = $user;
-        echo "welcome!";
-    }else{
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if($user && password_verify($password,$user['password'])){
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['firstName'];
+            $_SESSION['role'] = $user['role'];
+            echo "welcome!";
+        }
+    
+    else{
         echo "invalid email or password!";
     };
+ }
+}
+
+public function logout() {
+    if(isset($_POST['logout'])){
+        session_destroy();
+        header("Location: /");
+        exit();
+    }
+}
 
 }
 

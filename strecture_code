@@ -1,4 +1,4 @@
-library/
+QRAYATHON/
 │
 ├── public/                    
 │   ├── index.php 
@@ -15,13 +15,13 @@ library/
 │   │   ├── BorrowController.php
 │   │   └── ProfileController.php
 │   │
-│   ├── Models/
-│   │   ├── User.php
-│   │   ├── Book.php
-│   │   └── Borrow.php
-│   │
-│   └── Services/
-│       └── AuthService.php
+│   └── Models/
+│       ├── User.php
+│       ├── Book.php
+│       └── Borrow.php
+│   
+│   
+│       
 │
 ├── views/                      
 │   ├── homeviews.php
