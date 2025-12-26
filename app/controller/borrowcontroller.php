@@ -26,6 +26,27 @@ class borrowcontroller {
             }
         }
     }
+
+    public function returnbook() {
+        if(session_status() === PHP_SESSION_NONE) {session_start();}
+
+        if (isset($_GET['borrow_id']) && isset($_GET['book_id'])){
+            require './config/db.php';
+
+            $borrowid = $_GET['borrow_id'];
+            $bookid = $_GET['book_id'];
+            $returndate = date('y-m-d');
+
+            $updateborrow = $conn->prepare("UPDATE borrows SET returnDate = ? WHERE id = ?");
+            $updateborrow->execute([$returndate,$borrowid]);
+
+            $updatebook = $conn->prepare("UPDATE books SET status = 'available' WHERE id = ? ");
+            $updatebook->execute([$bookid]);
+
+            header("Location: /profile");
+            exit();
+        }
+    }
 }
 
 ?>
