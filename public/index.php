@@ -38,6 +38,11 @@ switch($page){
         $books = new bookcontroller();
         $books->add();
         break;
+    case 'borrow':
+        require_once './app/controller/borrowcontroller.php';
+        $books = new borrowcontroller();
+        $books->createborrow();
+        break;
     default :
         require_once './views/errors/404.php';
 
