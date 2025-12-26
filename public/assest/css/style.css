@@ -1,0 +1,27 @@
+:root {
+    --royal-blue: #1a1a2e;
+    --royal-gold: #c5a059;
+    --gold-gradient: linear-gradient(45deg, #c5a059, #e2c275);
+    --ivory: #f8f9fa;
+}
+
+body {
+    background-color: var(--ivory);
+    font-family: 'Inter', sans-serif;
+}
+
+.gold-shadow {
+    box-shadow: 0 10px 30px rgba(197, 160, 89, 0.2);
+}
+
+.king-card {
+    background: white;
+    border-radius: 15px;
+    border-bottom: 4px solid var(--royal-gold);
+    transition: all 0.3s ease;
+}
+
+.king-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}

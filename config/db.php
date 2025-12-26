@@ -1,13 +1,35 @@
+<?php
 
-<?php 
-try{
-$conn = new PDO("mysql:host=localhost;
-                dbname=qrayathon","root","197170");
-    $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-}catch(PDOException $e ){
-    die("database connection failed : " . $e->getMessage() . phpinfo() );
+class Database {
+    private $host = "localhost";
+    private $db_name = "qrayathon";
+    private $username = "root";
+    private $password = "197170";
+    private $conn = null;
+
+    public function getConnection() {
+        if ($this->conn === null) {
+            try {
+                $this->conn = new PDO(
+                    "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=utf8mb4",
+                    $this->username,
+                    $this->password
+                );
+                
+              
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                
+            } catch(PDOException $e) {
+                die("Database connection failed: " . $e->getMessage());
+            }
+        }
+        
+        return $this->conn;
+    }
 }
 
 
-
-?>
+$database = new Database();
+$conn = $database->getConnection();

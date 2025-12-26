@@ -1,54 +1,13 @@
 <?php
-
-
 session_start();
 
+require_once __DIR__ . '/../config/db.php';
 
-require_once './../app/controller/authcontroller.php';
+$router = require_once __DIR__ . '/../config/rootes.php';
 
-$auth = new authcontroller();
+$url = isset($_GET['url']) ? $_GET['url'] : (isset($_GET['page']) ? $_GET['page'] : '');
+
+$requestMethod = $_SERVER['REQUEST_METHOD'];
 
 
-$page = isset($_GET['page']) ? $_GET['page'] : 'login';
-
-
-switch($page){
-    case 'register' : 
-        $auth->register();
-        require_once './views/auth/singup.views.php';
-        break;
-    case 'login' :
-        $auth->login(); 
-        require_once './views/auth/signin.views.php';
-        break;
-    case 'logout' : 
-        $auth->logout();
-        break;
-    case 'books' :
-        require_once './app/controller/bookcontroller.php';
-        require_once './app/models/books.php';
-        break;
-    case 'books' :
-        require_once './app/controller/bookcontroller.php';
-        $books = new bookcontroller();
-        $books->index();
-        break;
-    case 'addbook':
-        require_once './app/controller/bookcontroller.php';
-        $books = new bookcontroller();
-        $books->add();
-        break;
-    case 'borrow':
-        require_once './app/controller/borrowcontroller.php';
-        $books = new borrowcontroller();
-        $books->createborrow();
-        break;
-    case 'returnbook':
-        require_once './app/controller/borrowcontroller.php';
-        $borrow = new borrowcontroller();
-        $borrow->returnbook();
-        break;
-    default :
-        require_once './views/errors/404.php';
-
-};
+$router->dispatch($url, $requestMethod);

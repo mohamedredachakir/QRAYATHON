@@ -2,10 +2,13 @@ QRAYATHON/
 │
 ├── public/                    
 │   ├── index.php 
-│   ├── .htacces
-│   └──assets/
-│      ├── css/
-│      └── js/              
+│   ├── .htaccess
+│   └── assets/
+│       ├── css/
+│       │   └── style.css
+│       ├── js/
+│       │   └── main.js
+│       └── images/
 │
 ├── app/                        
 │   ├── Controllers/
@@ -16,37 +19,41 @@ QRAYATHON/
 │   │   └── ProfileController.php
 │   │
 │   └── Models/
-│       ├── User.php
+│       ├── User.php          
+│       ├── Admin.php         
+│       ├── Reader.php        
 │       ├── Book.php
 │       └── Borrow.php
-│   
-│   
-│       
 │
 ├── views/                      
-│   ├── homeviews.php
+│   ├── home.php               
 │   │
 │   ├── auth/
 │   │   ├── login.php
 │   │   └── register.php
 │   │
 │   ├── books/
-│   │   ├── listviews.php
-│   │   └── detailsviews.php
+│   │   ├── list.php          
+│   │   └── details.php   
+│   │   └── addbook.php       
+│   │
 │   ├── layouts/
 │   │   ├── header.php
-│   │   └── footer.php
+│   │   ├── footer.php
+│   │   └── navbar.php        
 │   │
 │   ├── borrows/
-│   │   └── myborrowsviews.php
+│   │   └── myborrows.php
 │   │
 │   ├── profile/
-│   │   └── profileviews.php
+│   │   ├── reader.php         
+│   │   └── admin.php          
 │   │
 │   └── errors/
 │       └── 404.php
 │
 ├── config/
-│   └── database.php
+│   ├── db.php
+│   └── rootes.php             
 │
 └── README.md
