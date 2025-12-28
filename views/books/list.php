@@ -26,9 +26,34 @@
             <div class="p-6">
                 <h3 class="text-xl font-bold text-king mb-1"><?= $book->title ?></h3>
                 <p class="text-gray-400 text-sm mb-4 font-medium">By <?= $book->author ?></p>
-                <form action="index.php?url=borrow/create&book_id=<?= $book->id ?>" method="post"><button href="index.php?url=borrow/create&book_id=<?= $book->id ?>" class="block text-center py-2 border border-gold-500 text-gold font-bold rounded-lg hover:bg-gold-500 hover:text-white transition uppercase tracking-wider text-xs">
-                    Borrow Now
-        </button></form>
+                
+                <div class="mt-4">
+                    <?php if($_SESSION['user']['role'] === 'admin'): ?>
+                        <div class="flex gap-2">
+                            <a href="index.php?url=books/edit&id=<?= $book->id ?>" 
+                               class="flex-1 text-center py-2 bg-blue-50 text-blue-600 border border-blue-200 font-bold rounded-lg hover:bg-blue-600 hover:text-white transition uppercase text-[10px] tracking-wider">
+                                Edit
+                            </a>
+                            <a href="index.php?url=books/delete&id=<?= $book->id ?>" 
+                               onclick="return confirm('Are you sure you want to delete this scroll?')"
+                               class="flex-1 text-center py-2 bg-red-50 text-red-600 border border-red-200 font-bold rounded-lg hover:bg-red-600 hover:text-white transition uppercase text-[10px] tracking-wider">
+                                Delete
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <?php if($book->status === 'available'): ?>
+                            <form action="index.php?url=borrow/create&book_id=<?= $book->id ?>" method="post">
+                                <button type="submit" class="w-full text-center py-2 border border-gold-500 text-gold font-bold rounded-lg hover:bg-gold-500 hover:text-white transition uppercase tracking-wider text-xs">
+                                    Borrow Now
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <button disabled class="w-full text-center py-2 bg-gray-100 text-gray-400 font-bold rounded-lg cursor-not-allowed uppercase text-xs">
+                                Out on Loan
+                            </button>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
                 
             </div>
         </div>

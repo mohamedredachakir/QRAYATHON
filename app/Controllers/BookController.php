@@ -87,24 +87,45 @@ class bookcontroller {
         require_once './../views/books/add.php';
     }
 
-    public function edit(){
-        if(session_status() === PHP_SESSION_NONE) session_start();
-    if($_SESSION['user']['role'] !== 'admin') die('Access Denied');
+public function edit() {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    if ($_SESSION['user']['role'] !== 'admin') die('Access Denied');
 
-    if(isset($_POST['edit_book'])){
-        require_once __DIR__ . '/../../config/db.php';
-        global $conn;
+    require_once __DIR__ . '/../../config/db.php';
+    global $conn;
 
+  
+    if (isset($_POST['edit_book'])) {
         $id = $_POST['id'];
         $title = $_POST['title'];
         $author = $_POST['author'];
         $year = $_POST['year'];
+
         $sql = "UPDATE books SET title = ?, author = ?, year = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        if($stmt->execute([$title, $author, $year, $id])){
+        
+        if ($stmt->execute([$title, $author, $year, $id])) {
             header("Location: index.php?url=books");
             exit();
         }
+    }
+
+   
+    $id = $_GET['id'] ?? $_POST['id'] ?? null;
+    
+    if ($id) {
+        $stmt = $conn->prepare("SELECT * FROM books WHERE id = ?");
+        $stmt->execute([$id]);
+        $book = $stmt->fetch(PDO::FETCH_OBJ); 
+
+        if ($book) {
+            require_once __DIR__ . '/../../views/books/edit.php';
+        } else {
+            die("Scroll not found in archives!");
+        }
+    } else {
+        header("Location: index.php?url=books");
+        exit();
     }
 }
 

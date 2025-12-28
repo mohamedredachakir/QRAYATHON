@@ -69,8 +69,9 @@ $router->get('books', 'BookController', 'index');
 $router->get('books/details', 'BookController', 'details');
 $router->get('books/add', 'BookController', 'add'); 
 $router->post('books/add', 'BookController', 'add');
+$router->get('books/edit', 'BookController', 'edit');
 $router->post('books/edit', 'BookController', 'edit');
-$router->post('books/delete', 'BookController', 'delete');
+$router->get('books/delete', 'BookController', 'delete');
 
 
 $router->post('borrow/create', 'BorrowController', 'create');
