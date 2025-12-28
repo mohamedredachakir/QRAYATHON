@@ -94,38 +94,41 @@ public function edit() {
     require_once __DIR__ . '/../../config/db.php';
     global $conn;
 
-  
-    if (isset($_POST['edit_book'])) {
-        $id = $_POST['id'];
-        $title = $_POST['title'];
-        $author = $_POST['author'];
-        $year = $_POST['year'];
-
-        $sql = "UPDATE books SET title = ?, author = ?, year = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-        if ($stmt->execute([$title, $author, $year, $id])) {
-            header("Location: index.php?url=books");
-            exit();
+        $id = $_POST['id'] ?? null;
+        $title = $_POST['title'] ?? null;
+        $author = $_POST['author'] ?? null;
+        $year = $_POST['year'] ?? null;
+
+        if ($id) {
+            $sql = "UPDATE books SET title = ?, author = ?, year = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            
+            if ($stmt->execute([$title, $author, $year, $id])) {
+                
+                header("Location: index.php?url=books&success=1");
+                exit();
+            } else {
+                die("Database Error: Could not update the record.");
+            }
+        } else {
+            die("Error: Missing ID in POST request.");
         }
     }
 
-   
-    $id = $_GET['id'] ?? $_POST['id'] ?? null;
-    
+
+    $id = $_GET['id'] ?? null;
     if ($id) {
         $stmt = $conn->prepare("SELECT * FROM books WHERE id = ?");
         $stmt->execute([$id]);
-        $book = $stmt->fetch(PDO::FETCH_OBJ); 
+        $book = $stmt->fetch(PDO::FETCH_OBJ);
 
         if ($book) {
             require_once __DIR__ . '/../../views/books/edit.php';
         } else {
-            die("Scroll not found in archives!");
+            die("Book not found!");
         }
-    } else {
-        header("Location: index.php?url=books");
-        exit();
     }
 }
 
