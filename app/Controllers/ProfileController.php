@@ -23,7 +23,8 @@ class ProfileController {
             
         } else {
             $reader = new Reader($this->db);
-            $borrows = $reader->getMyBorrows($_SESSION['user']['id']);
+            $borrows = $reader->getMyBorrows($_SESSION['user']['role']);
+            require_once './../views/profile/reader.php';
            
         }
     }

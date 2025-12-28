@@ -167,7 +167,7 @@ class AuthController {
         session_destroy();
         
         
-        header('Location: /login');
+        header('Location: index.php?page=home');
         exit();
     }
     

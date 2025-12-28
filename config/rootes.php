@@ -67,6 +67,7 @@ $router->get('logout', 'AuthController', 'logout');
 
 $router->get('books', 'BookController', 'index');
 $router->get('books/details', 'BookController', 'details');
+$router->get('books/add', 'BookController', 'add'); 
 $router->post('books/add', 'BookController', 'add');
 $router->post('books/edit', 'BookController', 'edit');
 $router->post('books/delete', 'BookController', 'delete');

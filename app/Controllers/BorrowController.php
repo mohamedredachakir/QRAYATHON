@@ -6,7 +6,7 @@
 require_once './../app/Models/Borrow.php';
 
 class borrowcontroller {
-    public function  createborrow() {
+    public function  create() {
         if(session_status() === PHP_SESSION_NONE){session_start();}
 
         if(isset($_GET['book_id'])){

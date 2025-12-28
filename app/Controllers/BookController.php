@@ -33,7 +33,7 @@ class bookcontroller {
     public function add(){
         if(session_status() === PHP_SESSION_NONE) session_start();
         
-        if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        if($_SESSION['user']['role'] !== 'admin'){
             die('Access Denied: You do not have permission!');
         }
 
@@ -55,6 +55,6 @@ class bookcontroller {
                 exit();
             }
         }
-        require_once __DIR__ . '/../../views/books/addbook.php';
+        require_once './../views/books/add.php';
     }
 }

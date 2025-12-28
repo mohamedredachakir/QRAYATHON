@@ -8,7 +8,7 @@
         </div>
         
         <?php if($_SESSION['user']['role'] === 'admin'): ?>
-            <a href="index.php?url=addbook" class="px-8 py-3 bg-king text-gold font-bold rounded-full border border-gold-500 hover:bg-gold-500 hover:text-white transition">
+            <a href="index.php?url=books/add" class="px-8 py-3 bg-king text-gold font-bold rounded-full border border-gold-500 hover:bg-gold-500 hover:text-white transition">
                 + ADD NEW VOLUME
             </a>
         <?php endif; ?>
