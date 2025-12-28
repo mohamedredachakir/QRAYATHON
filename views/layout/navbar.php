@@ -8,7 +8,7 @@
             <a href="index.php?page=books" class="text-gray-300 hover:text-gold font-semibold text-sm">ARCHIVES</a>
             
             <?php if (isset($_SESSION['user'])): ?>
-                <a href="index.php?page=myborrows" class="text-gray-300 hover:text-gold font-semibold text-sm">MY SCROLLS</a>
+                
                 
                 <div class="h-8 w-px bg-gray-700"></div>
                 

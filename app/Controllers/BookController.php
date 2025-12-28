@@ -7,7 +7,11 @@ class bookcontroller {
     public function index(){
         
         require_once __DIR__ . '/../../config/db.php';
-        
+        if (!isset($_SESSION['user'])) {
+       
+        header("Location: index.php?url=login");
+        exit();
+    }
        
         global $conn; 
 

@@ -74,8 +74,11 @@ $router->post('books/delete', 'BookController', 'delete');
 
 
 $router->post('borrow/create', 'BorrowController', 'create');
-$router->post('borrow/return', 'BorrowController', 'returnBook');
+$router->get('borrow/return', 'BorrowController', 'returnbook');
 $router->get('myborrows', 'BorrowController', 'myBorrows');
+
+
+$router->get('myborrows', 'MyBorrowsController', 'index');
 
 
 $router->get('profile', 'ProfileController', 'index');

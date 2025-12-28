@@ -26,10 +26,10 @@
             <div class="p-6">
                 <h3 class="text-xl font-bold text-king mb-1"><?= $book->title ?></h3>
                 <p class="text-gray-400 text-sm mb-4 font-medium">By <?= $book->author ?></p>
-                
-                <a href="index.php?url=borrow/create&book_id=<?= $book->id ?>" class="block text-center py-2 border border-gold-500 text-gold font-bold rounded-lg hover:bg-gold-500 hover:text-white transition uppercase tracking-wider text-xs">
+                <form action="index.php?url=borrow/create&book_id=<?= $book->id ?>" method="post"><button href="index.php?url=borrow/create&book_id=<?= $book->id ?>" class="block text-center py-2 border border-gold-500 text-gold font-bold rounded-lg hover:bg-gold-500 hover:text-white transition uppercase tracking-wider text-xs">
                     Borrow Now
-                </a>
+        </button></form>
+                
             </div>
         </div>
         <?php endforeach; ?>
