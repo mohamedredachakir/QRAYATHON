@@ -61,4 +61,52 @@ class bookcontroller {
         }
         require_once './../views/books/add.php';
     }
+
+    public function delete(){
+        if(session_status() === PHP_SESSION_NONE) session_start();
+        
+        if($_SESSION['user']['role'] !== 'admin'){
+            die('Access Denied: You do not have permission!');
+        }
+
+              $id = $_GET['id'] ?? null;
+
+    if($id) {
+        require_once __DIR__ . '/../../config/db.php';
+        global $conn;
+
+        $sql = "DELETE FROM books WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+            
+            if($stmt->execute([$id])){
+               
+                header("Location: index.php?url=books");
+                exit();
+            }
+        }
+        require_once './../views/books/add.php';
+    }
+
+    public function edit(){
+        if(session_status() === PHP_SESSION_NONE) session_start();
+    if($_SESSION['user']['role'] !== 'admin') die('Access Denied');
+
+    if(isset($_POST['edit_book'])){
+        require_once __DIR__ . '/../../config/db.php';
+        global $conn;
+
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $author = $_POST['author'];
+        $year = $_POST['year'];
+        $sql = "UPDATE books SET title = ?, author = ?, year = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute([$title, $author, $year, $id])){
+            header("Location: index.php?url=books");
+            exit();
+        }
+    }
+}
+
+
 }
