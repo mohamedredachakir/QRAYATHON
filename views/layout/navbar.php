@@ -14,8 +14,8 @@
                 
                 <div class="flex items-center gap-3">
                     <div class="text-right">
-                        <p class="text-white text-xs font-bold"><?= $_SESSION['user']->firstName ?></p>
-                        <p class="text-gold text-[10px] uppercase"><?= $_SESSION['role'] ?></p>
+                        <p class="text-white text-xs font-bold"><?= $_SESSION['user']['firstName'] ?></p>
+                        <p class="text-gold text-[10px] uppercase"><?= $_SESSION['user']['role'] ?></p>
                     </div>
                     <a href="index.php?page=profile" class="text-gray-300 hover:text-gold transition">
                         <i class="fas fa-user-circle"></i>

@@ -3,7 +3,7 @@
 
 <?php 
 
-require_once './app/models/borrow.php';
+require_once './../app/Models/Borrow.php';
 
 class borrowcontroller {
     public function  createborrow() {

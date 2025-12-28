@@ -1,5 +1,5 @@
-<?php include '../views/layouts/header.php'; ?>
-<?php include '../views/layouts/navbar.php'; ?>
+<?php include './../views/layout/header.php'; ?>
+<?php include './../views/layout/navbar.php'; ?>
 
 <div class="container mx-auto px-6 py-10">
     <div class="mb-10">
@@ -43,3 +43,6 @@
         <div class="bg-king px-8 py-4 flex justify-between items-center">
             <h3 class="text-white font-bold tracking-widest">RECENT TRANSACTIONS</h3>
             <button class="text-gold text-xs font-bold hover:
+
+   <?php include './../views/layout/footer.php'; ?>
+ 

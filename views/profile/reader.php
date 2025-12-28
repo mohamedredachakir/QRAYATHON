@@ -1,5 +1,5 @@
-<?php include '../views/layouts/header.php'; ?>
-<?php include '../views/layouts/navbar.php'; ?>
+<?php include './../views/layout/header.php'; ?>
+<?php include './../views/layout/navbar.php'; ?>
 
 <div class="container mx-auto px-6 py-16">
     <div class="flex flex-col md:flex-row gap-12">
@@ -38,3 +38,5 @@
         </div>
     </div>
 </div>
+
+<?php include './../views/layout/footer.php'; ?>

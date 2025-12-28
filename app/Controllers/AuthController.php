@@ -33,11 +33,11 @@ class AuthController {
   
         $errors = [];
         
-        if (empty($_POST['firstname'])) {
+        if (empty($_POST['firstName'])) {
             $errors[] = "First name is required";
         }
         
-        if (empty($_POST['lastname'])) {
+        if (empty($_POST['lastName'])) {
             $errors[] = "Last name is required";
         }
         
@@ -45,20 +45,21 @@ class AuthController {
             $errors[] = "Valid email is required";
         }
         
-        if (empty($_POST['password']) || strlen($_POST['password']) < 6) {
+        if (empty($_POST['password']) || strlen($_POST['password']) < 4) {
             $errors[] = "Password must be at least 6 characters";
         }
         
    
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
-            header('Location: /register');
+            dd($errors);
+            header('Location: /404');
             exit();
         }
         
    
-        $firstName = htmlspecialchars(trim($_POST['firstname']));
-        $lastName = htmlspecialchars(trim($_POST['lastname']));
+        $firstName = htmlspecialchars(trim($_POST['firstName']));
+        $lastName = htmlspecialchars(trim($_POST['lastName']));
         $email = htmlspecialchars(trim($_POST['email']));
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $role = "reader"; 
@@ -71,7 +72,8 @@ class AuthController {
         
         if ($checkStmt->rowCount() > 0) {
             $_SESSION['error'] = "Email already exists";
-            header('Location: /register');
+            dd($checkStmt);
+            header('Location: index.php?page=register');
             exit();
         }
         
@@ -88,7 +90,7 @@ class AuthController {
         
         if ($stmt->execute()) {
             $_SESSION['success'] = "Registration successful! Please login.";
-            header('Location: /login');
+            header('Location: index.php?page=login');
             exit();
         } else {
             $_SESSION['error'] = "Registration failed. Please try again.";
@@ -135,19 +137,16 @@ class AuthController {
         }
         
      
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['firstName'];
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['email'] = $user['email'];
+        $_SESSION['user'] = $user;
         
         $_SESSION['success'] = "Welcome back, " . $user['firstName'] . "!";
         
       
         if ($user['role'] === 'admin') {
-            header('Location: /profile');
+            header('Location: index.php?page=profile');
             exit();
         } else {
-            header('Location: /profile');
+            header('Location: index.php?page=profile');
             exit();
         }
     }
